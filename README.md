@@ -21,8 +21,8 @@
     <a href="https://github.com/cthoyt/quickstatements-client/blob/main/LICENSE">
         <img alt="PyPI - License" src="https://img.shields.io/pypi/l/quickstatements_client" />
     </a>
-    <a href='https://quickstatements_client.readthedocs.io/en/latest/?badge=latest'>
-        <img src='https://readthedocs.org/projects/quickstatements_client/badge/?version=latest' alt='Documentation Status' />
+    <a href='https://quickstatements-client.readthedocs.io/en/latest/?badge=latest'>
+        <img src='https://readthedocs.org/projects/quickstatements-client/badge/?version=latest' alt='Documentation Status' />
     </a>
     <a href="https://codecov.io/gh/cthoyt/quickstatements-client/branch/main">
         <img src="https://codecov.io/gh/cthoyt/quickstatements-client/branch/main/graph/badge.svg" alt="Codecov status" />
