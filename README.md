@@ -92,14 +92,12 @@ Specifically, using `pystow.get_config("quickstatements", "token)` and
 
 ## 🚀 Installation
 
-<!-- Uncomment this section after your first ``tox -e finish``
 The most recent release can be installed from
 [PyPI](https://pypi.org/project/quickstatements_client/) with:
 
 ```shell
 $ pip install quickstatements_client
 ```
--->
 
 The most recent code and data can be installed directly from GitHub with:
 
