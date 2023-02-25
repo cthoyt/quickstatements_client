@@ -36,6 +36,9 @@
     <a href="https://github.com/cthoyt/quickstatements-client/blob/main/.github/CODE_OF_CONDUCT.md">
         <img src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg" alt="Contributor Covenant"/>
     </a>
+    <a href="https://zenodo.org/badge/latestdoi/606491168">
+        <img src="https://zenodo.org/badge/606491168.svg" alt="DOI">
+    </a>
 </p>
 
 A data model and client for Wikidata [QuickStatements](https://quickstatements.toolforge.org).
