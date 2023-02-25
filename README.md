@@ -111,7 +111,7 @@ Contributions, whether filing an issue, making a pull request, or forking, are a
 ## 👋 Attribution
 
 This code was originally written as a contribution to [PyORCIDator](https://github.com/lubianat/pyorcidator).
-Special thanks to Tiago Lubiana and João Vitor for discussions and testing.
+Special thanks to Tiago Lubiana [@lubianat] and João Vitor [@jvfe] for discussions and testing.
 
 ### ⚖️ License
 
