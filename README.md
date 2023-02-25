@@ -9,8 +9,8 @@
 </h1>
 
 <p align="center">
-    <a href="https://github.com/cthoyt/quickstatements-client/actions?query=workflow%3ATests">
-        <img alt="Tests" src="https://github.com/cthoyt/quickstatements-client/workflows/Tests/badge.svg" />
+    <a href="https://github.com/cthoyt/quickstatements_client/actions/workflows/tests.yml">
+        <img alt="Tests" src="https://github.com/cthoyt/quickstatements_client/actions/workflows/tests.yml/badge.svg" />
     </a>
     <a href="https://pypi.org/project/quickstatements_client">
         <img alt="PyPI" src="https://img.shields.io/pypi/v/quickstatements_client" />
