@@ -1,0 +1,19 @@
+{
+  "template": "https://github.com/cthoyt/cookiecutter-snekpack",
+  "commit": "9794311f91bfee9f1fec3c4114eaafe8bcf498bb",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "package_name": "quickstatements_client",
+      "package_name_stylized": "QuickStatements Client",
+      "short_description": "A datamodel and client for Wikidata QuickStatements",
+      "author_name": "Charles Tapley Hoyt",
+      "author_email": "cthoyt@gmail.com",
+      "github_organization_name": "cthoyt",
+      "github_repository_name": "quickstatements-client",
+      "command_line_interface": "True",
+      "_template": "https://github.com/cthoyt/cookiecutter-snekpack"
+    }
+  },
+  "directory": null
+}
