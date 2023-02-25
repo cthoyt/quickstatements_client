@@ -38,7 +38,7 @@
     </a>
 </p>
 
-A data model and client for Wikidata QuickStatements
+A data model and client for Wikidata [QuickStatements](https://quickstatements.toolforge.org).
 
 ## 💪 Getting Started
 
@@ -46,7 +46,7 @@ Here's how to quickly construct some QuickStatements
 
 ```python
 import datetime
-from quickstatements_client.model import *
+from quickstatements_client import DateQualifier, EntityQualifier, TextQualifier, EntityLine
 
 subject_qid = "Q47475003"  # Charles Tapley Hoyt
 subject_orcid = "0000-0003-4423-4370"
@@ -78,7 +78,11 @@ lines = [
 ]
 
 client = QuickStatementsClient(token=..., username=...)
-client.post(lines, batch_name="Test Batch")
+res = client.post(lines, batch_name="Test Batch")
+# see also res.batch_id
+
+import webbrowser
+webbrowser.open_new_tab(res.batch_url)
 ```
 
 Note: `token` and `username` are automatically looked up with `pystow` if they aren't given.

@@ -83,3 +83,8 @@ class Response(BaseModel):
 
     status: str
     batch_id: Optional[str] = None
+
+    @property
+    def batch_url(self) -> str:
+        """Get the URL for the batch."""
+        return f"https://quickstatements.toolforge.org/#/batch/{self.batch_id}"
