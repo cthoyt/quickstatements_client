@@ -12,6 +12,7 @@ import requests
 
 from quickstatements_client.model import (
     CreateLine,
+    DateQualifier,
     EntityLine,
     EntityQualifier,
     Line,
@@ -130,30 +131,32 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
         predicate="S854",  # reference URL
         target=f"https://pypi.org/project/{pypi_project}",
     )
+    retrieved_qualifier = DateQualifier.retrieved(namespace="S")
+    qualifiers = [pypi_qualifier, retrieved_qualifier]
 
     yield EntityLine(
         subject=package_qid,
         predicate="P31",  # instance of
         target="Q29642950",  # Python library
-        qualifiers=[pypi_qualifier],
+        qualifiers=qualifiers,
     )
     yield EntityLine(
         subject=package_qid,
         predicate="P31",  # instance of
         target="Q7397",  # software
-        qualifiers=[pypi_qualifier],
+        qualifiers=qualifiers,
     )
     yield EntityLine(
         subject=package_qid,
         predicate="P277",  # programmed in
         target="Q28865",  # Python
-        qualifiers=[pypi_qualifier],
+        qualifiers=qualifiers,
     )
     yield TextLine(
         subject=package_qid,
         predicate="P5568",  # PyPI Project
         target=pypi_project,
-        qualifiers=[pypi_qualifier],
+        qualifiers=qualifiers,
     )
 
     license_qid = get_license_qid(metadata.get("license") or "")
@@ -162,13 +165,13 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
             subject=package_qid,
             predicate="P6216",  # copyright status
             target="Q50423863",  # copyrighted
-            qualifiers=[pypi_qualifier],
+            qualifiers=qualifiers,
         )
         yield EntityLine(
             subject=package_qid,
             predicate="P275",  # copyright license
             target=license_qid,
-            qualifiers=[pypi_qualifier],
+            qualifiers=qualifiers,
         )
 
     docs_url = metadata.get("docs_url")
@@ -177,7 +180,7 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
             subject=package_qid,
             predicate="P2078",  # user manual URL
             target=docs_url.rstrip("/"),
-            qualifiers=[pypi_qualifier],
+            qualifiers=qualifiers,
         )
 
     project_urls = metadata.get("project_urls") or {}
@@ -192,7 +195,7 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
             subject=package_qid,
             predicate=predicate,
             target=target_url.rstrip("/"),
-            qualifiers=[pypi_qualifier],
+            qualifiers=qualifiers,
         )
 
     for url in [
@@ -206,7 +209,7 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
                 predicate="P1324",  # source code repository
                 target=url.rstrip("/"),
                 qualifiers=[
-                    pypi_qualifier,
+                    *qualifiers,
                     git_qualifier,
                     github_qualifier,
                 ],
@@ -227,7 +230,7 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
             subject=package_qid,
             predicate="P1547",  # depends on software
             target=requirement_qid,
-            qualifiers=[pypi_qualifier],
+            qualifiers=qualifiers,
         )
 
 
@@ -247,4 +250,5 @@ def _dict_get(data: Mapping[str, str], keys: Sequence[str]) -> Optional[str]:
 
 
 if __name__ == "__main__":
-    lines_to_new_tab(iter_pypi_lines("y0"))
+    # print(render_lines(iter_pypi_lines("quickstatements-client"), sep="\t", newline="\n"))
+    lines_to_new_tab(iter_pypi_lines("bioregistry"))
