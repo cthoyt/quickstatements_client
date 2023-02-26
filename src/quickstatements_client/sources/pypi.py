@@ -171,7 +171,8 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
             qualifiers=[pypi_qualifier],
         )
 
-    if docs_url := metadata.get("docs_url"):
+    docs_url = metadata.get("docs_url")
+    if docs_url:
         yield TextLine(
             subject=package_qid,
             predicate="P2078",  # user manual URL
@@ -184,13 +185,15 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
         ("P856", ["homepage"]),  # official website
         ("P1401", ["tracker", "bug tracker"]),  # issue tracker URL
     ]:
-        if target_url := _dict_get(project_urls, keys):
-            yield TextLine(
-                subject=package_qid,
-                predicate=predicate,
-                target=target_url.rstrip("/"),
-                qualifiers=[pypi_qualifier],
-            )
+        target_url = _dict_get(project_urls, keys)
+        if not target_url:
+            continue
+        yield TextLine(
+            subject=package_qid,
+            predicate=predicate,
+            target=target_url.rstrip("/"),
+            qualifiers=[pypi_qualifier],
+        )
 
     for url in [
         _dict_get(project_urls, ["homepage", "source", "source code"]),
