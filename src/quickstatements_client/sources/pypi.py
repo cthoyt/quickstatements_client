@@ -214,6 +214,8 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
             break
 
     for requirement in metadata.get("requires_dist") or []:
+        # TODO reuse existing parser
+        # TODO decide if extras should count
         parts = requirement.split(" ", 1)
         if len(parts) > 1 and any("extra" in part for part in parts[1:]):
             continue
