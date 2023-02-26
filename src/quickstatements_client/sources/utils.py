@@ -2,7 +2,7 @@
 
 """Utilities for Wikidata."""
 
-from typing import Any
+from typing import Any, List, Mapping
 
 import requests
 
@@ -12,7 +12,7 @@ __all__ = ["WIKIDATA_ENDPOINT", "query_wikidata"]
 WIKIDATA_ENDPOINT = "https://query.wikidata.org/bigdata/namespace/wdq/sparql"
 
 
-def query_wikidata(sparql: str) -> list[dict[str, Any]]:
+def query_wikidata(sparql: str) -> List[Mapping[str, Any]]:
     """Query Wikidata's sparql service.
 
     :param sparql: A SPARQL query string
