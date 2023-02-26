@@ -140,7 +140,7 @@ if os.path.exists("logo.png"):
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "QuickStatements Clientdoc"
+htmlhelp_basename = "quickstatements_client_doc"
 
 # -- Options for LaTeX output ------------------------------------------------
 

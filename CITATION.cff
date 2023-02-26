@@ -1,6 +1,6 @@
 cff-version: 1.0.2
 message: "If you use this software, please cite it as below."
-title: "quickstatements_client"
+title: "QuickStatements Client"
 authors:
   - name: "Charles Tapley Hoyt"
 version: 0.0.1-dev
