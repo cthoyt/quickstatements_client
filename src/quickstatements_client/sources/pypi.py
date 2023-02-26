@@ -18,7 +18,7 @@ from quickstatements_client.model import (
     Line,
     TextLine,
     TextQualifier,
-    render_lines,
+    lines_to_new_tab,
 )
 from quickstatements_client.sources.utils import query_wikidata, removeprefix
 
@@ -250,5 +250,5 @@ def _dict_get(data: Mapping[str, str], keys: Sequence[str]) -> Optional[str]:
 
 
 if __name__ == "__main__":
-    print(render_lines(iter_pypi_lines("quickstatements-client"), sep="\t", newline="\n"))
-    # lines_to_new_tab(iter_pypi_lines("bioregistry"))
+    # print(render_lines(iter_pypi_lines("quickstatements-client"), sep="\t", newline="\n"))
+    lines_to_new_tab(iter_pypi_lines("bioregistry"))
