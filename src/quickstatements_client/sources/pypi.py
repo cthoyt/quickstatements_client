@@ -19,7 +19,7 @@ from quickstatements_client.model import (
     TextQualifier,
     lines_to_new_tab,
 )
-from quickstatements_client.sources.utils import query_wikidata
+from quickstatements_client.sources.utils import query_wikidata, removeprefix
 
 logger = logging.getLogger(__name__)
 
@@ -48,7 +48,7 @@ def load_licenses() -> Mapping[str, str]:
         }
     """
     return {
-        _norm(r["name"]): r["item"].removeprefix("http://www.wikidata.org/entity/")
+        _norm(r["name"]): removeprefix(r["item"], "http://www.wikidata.org/entity/")
         for r in json.loads(LICENSES.read_text())
     }
 
@@ -196,7 +196,7 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
         )
 
     for url in [
-        _dict_get(project_urls, ["homepage", "source", "source code"]),
+        _dict_get(project_urls, ["homepage"]),
         _dict_get(project_urls, ["source", "source code"]),
         metadata.get("home_page", ""),
     ]:

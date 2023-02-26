@@ -6,7 +6,11 @@ from typing import Any, List, Mapping
 
 import requests
 
-__all__ = ["WIKIDATA_ENDPOINT", "query_wikidata"]
+__all__ = [
+    "WIKIDATA_ENDPOINT",
+    "query_wikidata",
+    "removeprefix",
+]
 
 #: Wikidata SPARQL endpoint. See https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service#Interfacing
 WIKIDATA_ENDPOINT = "https://query.wikidata.org/bigdata/namespace/wdq/sparql"
@@ -27,6 +31,13 @@ def query_wikidata(sparql: str) -> List[Mapping[str, Any]]:
     ]
 
 
+def removeprefix(s: str, prefix: str) -> str:
+    """Remove a prefix."""
+    if s.startswith(prefix):
+        return s[len(prefix) :]
+    return s
+
+
 def _clean_value(value: str) -> str:
-    value = value.removeprefix("http://www.wikidata.org/entity/")
+    value = removeprefix(value, "http://www.wikidata.org/entity/")
     return value
