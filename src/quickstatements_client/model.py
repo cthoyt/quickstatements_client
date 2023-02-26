@@ -62,6 +62,14 @@ class DateQualifier(BaseModel):
         """Get a qualifier for an end time."""
         return cls(predicate="P582", target=prepare_date(target, precision=precision))
 
+    @classmethod
+    def retrieved(
+        cls, namespace: Literal["P", "S"], precision: Optional[int] = 14
+    ) -> "DateQualifier":
+        """Get a qualifier for retrieving data now."""
+        now = datetime.datetime.now()
+        return cls(predicate=f"{namespace}813", target=prepare_date(now, precision=precision))
+
 
 def format_date(
     *,
