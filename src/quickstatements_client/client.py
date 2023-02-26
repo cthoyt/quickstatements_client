@@ -3,14 +3,13 @@
 1. Get a token from
 """
 
-from __future__ import annotations
-
 import webbrowser
-from typing import Literal, Optional, Sequence
+from typing import Optional, Sequence
 
 import pystow
 import requests
 from pydantic import BaseModel, Field
+from typing_extensions import Literal
 
 from quickstatements_client.model import Line, lines_to_url, render_lines
 
@@ -19,6 +18,18 @@ __all__ = [
     "Post",
     "Response",
 ]
+
+
+class Response(BaseModel):
+    """A data model for the response returned by the QuickStatements API."""
+
+    status: str
+    batch_id: Optional[str] = None
+
+    @property
+    def batch_url(self) -> str:
+        """Get the URL for the batch."""
+        return f"https://quickstatements.toolforge.org/#/batch/{self.batch_id}"
 
 
 class QuickStatementsClient:
@@ -76,15 +87,3 @@ class Post(BaseModel):
     submit: int = Field(1)
     site: str = Field("wikidata")
     format: Literal["v1", "csv"] = "v1"
-
-
-class Response(BaseModel):
-    """A data model for the response returned by the QuickStatements API."""
-
-    status: str
-    batch_id: Optional[str] = None
-
-    @property
-    def batch_url(self) -> str:
-        """Get the URL for the batch."""
-        return f"https://quickstatements.toolforge.org/#/batch/{self.batch_id}"
