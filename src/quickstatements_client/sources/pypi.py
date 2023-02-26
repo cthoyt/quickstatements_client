@@ -3,10 +3,11 @@
 """Create QuickStatements from the Python Package Index (PyPI)."""
 
 import json
+import logging
 from functools import lru_cache
 from pathlib import Path
 from typing import Iterable, Mapping, Optional, Sequence
-import logging
+
 import requests
 
 from quickstatements_client.model import (
