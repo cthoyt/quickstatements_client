@@ -2,11 +2,11 @@
 
 import datetime
 import webbrowser
-from typing import List, Optional, Sequence, Tuple, Type, Union
+from typing import Iterable, List, Optional, Sequence, Type, Union
 from urllib.parse import quote
 
 from pydantic import BaseModel, Field
-from typing_extensions import Annotated, Literal
+from typing_extensions import Annotated, Literal, get_args
 
 __all__ = [
     # Data model
@@ -159,7 +159,10 @@ class BaseLine(BaseModel):
     """A shared model for entity and text lines."""
 
     subject: str = Field(regex=r"^(LAST)|(Q\d+)$")
-    predicate: str = Field(regex=r"^(P\d+)|(Len)|(Den)$")
+    predicate: str = Field(
+        regex=r"^(P\d+)|(Len)|(Den)$",
+        description="Either a predicate, `Len` (label), or `Den` (description)",
+    )
     qualifiers: List[Qualifier] = Field(default_factory=list)
 
     def get_target(self) -> str:
@@ -197,25 +200,23 @@ class TextLine(BaseLine):
 Line = Annotated[Union[CreateLine, EntityLine, TextLine], Field(discriminator="type")]
 
 
-def render_lines(lines: Sequence[Line], sep: str = "|", newline: str = "||") -> str:
+def render_lines(lines: Iterable[Line], sep: str = "|", newline: str = "||") -> str:
     """Prepare QuickStatements line objects for sending to the API."""
     return newline.join(line.get_line(sep=sep) for line in lines)
 
 
-def lines_to_url(lines: Sequence[Line]) -> str:
+def lines_to_url(lines: Iterable[Line]) -> str:
     """Prepare a URL for V1 of QuickStatements."""
     quoted_qs = quote(render_lines(lines), safe="")
     return f"https://quickstatements.toolforge.org/#/v1={quoted_qs}"
 
 
-def lines_to_new_tab(lines: Sequence[Line]):
+def lines_to_new_tab(lines: Iterable[Line]):
     """Open a web browser on the host system."""
     return webbrowser.open_new_tab(lines_to_url(lines))
 
 
-def _unpack_annotated(t) -> Tuple[Type, ...]:
-    from typing import get_args
-
+def _unpack_annotated(t) -> Sequence[Type]:
     return get_args(get_args(t)[0])
 
 

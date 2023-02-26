@@ -1,0 +1,450 @@
+[
+  {
+    "name": "Delphi",
+    "item": "http://www.wikidata.org/entity/Q487378"
+  },
+  {
+    "name": "Aladdin",
+    "item": "http://www.wikidata.org/entity/Q979794"
+  },
+  {
+    "name": "AGPL v1",
+    "item": "http://www.wikidata.org/entity/Q27017230"
+  },
+  {
+    "name": "RSCPL",
+    "item": "http://www.wikidata.org/entity/Q7332330"
+  },
+  {
+    "name": "AGPL v2",
+    "item": "http://www.wikidata.org/entity/Q54365943"
+  },
+  {
+    "name": "0BSD",
+    "item": "http://www.wikidata.org/entity/Q48271011"
+  },
+  {
+    "name": "Intel",
+    "item": "http://www.wikidata.org/entity/Q6043507"
+  },
+  {
+    "name": "D-FSL-1.0",
+    "item": "http://www.wikidata.org/entity/Q5551105"
+  },
+  {
+    "name": "MPL-1.0",
+    "item": "http://www.wikidata.org/entity/Q26737738"
+  },
+  {
+    "name": "AGPL-1.0-or-later",
+    "item": "http://www.wikidata.org/entity/Q54571707"
+  },
+  {
+    "name": "Vim",
+    "item": "http://www.wikidata.org/entity/Q43338605"
+  },
+  {
+    "name": "JasPer-2.0",
+    "item": "http://www.wikidata.org/entity/Q47524112"
+  },
+  {
+    "name": "SSPL",
+    "item": "http://www.wikidata.org/entity/Q58531884"
+  },
+  {
+    "name": "EPICS",
+    "item": "http://www.wikidata.org/entity/Q27096218"
+  },
+  {
+    "name": "MPL 2.0",
+    "item": "http://www.wikidata.org/entity/Q25428413"
+  },
+  {
+    "name": "Ruby",
+    "item": "http://www.wikidata.org/entity/Q3066722"
+  },
+  {
+    "name": "curl",
+    "item": "http://www.wikidata.org/entity/Q33042394"
+  },
+  {
+    "name": "AAL",
+    "item": "http://www.wikidata.org/entity/Q38364310"
+  },
+  {
+    "name": "GNU LGPL v3",
+    "item": "http://www.wikidata.org/entity/Q18534393"
+  },
+  {
+    "name": "APSL",
+    "item": "http://www.wikidata.org/entity/Q621330"
+  },
+  {
+    "name": "X11",
+    "item": "http://www.wikidata.org/entity/Q18526202"
+  },
+  {
+    "name": "Fair",
+    "item": "http://www.wikidata.org/entity/Q22682017"
+  },
+  {
+    "name": "WTFPL",
+    "item": "http://www.wikidata.org/entity/Q152481"
+  },
+  {
+    "name": "ISC",
+    "item": "http://www.wikidata.org/entity/Q386474"
+  },
+  {
+    "name": "PostgreSQL",
+    "item": "http://www.wikidata.org/entity/Q18563589"
+  },
+  {
+    "name": "Apache-1.0",
+    "item": "http://www.wikidata.org/entity/Q26897902"
+  },
+  {
+    "name": "gnuplot",
+    "item": "http://www.wikidata.org/entity/Q103979882"
+  },
+  {
+    "name": "OpenSSL",
+    "item": "http://www.wikidata.org/entity/Q89948816"
+  },
+  {
+    "name": "HPND",
+    "item": "http://www.wikidata.org/entity/Q5773924"
+  },
+  {
+    "name": "GNU LGPL",
+    "item": "http://www.wikidata.org/entity/Q192897"
+  },
+  {
+    "name": "EPL-1.0",
+    "item": "http://www.wikidata.org/entity/Q55633170"
+  },
+  {
+    "name": "MPL 1.1",
+    "item": "http://www.wikidata.org/entity/Q26737735"
+  },
+  {
+    "name": "Apache-1.1",
+    "item": "http://www.wikidata.org/entity/Q17817999"
+  },
+  {
+    "name": "Apache-2.0",
+    "item": "http://www.wikidata.org/entity/Q13785927"
+  },
+  {
+    "name": "Artistic-2.0",
+    "item": "http://www.wikidata.org/entity/Q14624826"
+  },
+  {
+    "name": "Info-ZIP",
+    "item": "http://www.wikidata.org/entity/Q105235524"
+  },
+  {
+    "name": "MIT",
+    "item": "http://www.wikidata.org/entity/Q334661"
+  },
+  {
+    "name": "GNU LGPL v2.1",
+    "item": "http://www.wikidata.org/entity/Q18534390"
+  },
+  {
+    "name": "Libpng",
+    "item": "http://www.wikidata.org/entity/Q6542418"
+  },
+  {
+    "name": "Spencer-86",
+    "item": "http://www.wikidata.org/entity/Q97463778"
+  },
+  {
+    "name": "NCSA",
+    "item": "http://www.wikidata.org/entity/Q2495855"
+  },
+  {
+    "name": "Zlib",
+    "item": "http://www.wikidata.org/entity/Q207243"
+  },
+  {
+    "name": "CECILL-B",
+    "item": "http://www.wikidata.org/entity/Q1052189"
+  },
+  {
+    "name": "CECILL-C",
+    "item": "http://www.wikidata.org/entity/Q1052189"
+  },
+  {
+    "name": "Sleepycat",
+    "item": "http://www.wikidata.org/entity/Q2294050"
+  },
+  {
+    "name": "MS-PL",
+    "item": "http://www.wikidata.org/entity/Q15477153"
+  },
+  {
+    "name": "BSD-1-Clause",
+    "item": "http://www.wikidata.org/entity/Q19292556"
+  },
+  {
+    "name": "NGPL",
+    "item": "http://www.wikidata.org/entity/Q20764732"
+  },
+  {
+    "name": "LGPL-2.0-only",
+    "item": "http://www.wikidata.org/entity/Q23035974"
+  },
+  {
+    "name": "OLDAP-2.8",
+    "item": "http://www.wikidata.org/entity/Q25273268"
+  },
+  {
+    "name": "LGPL-2.0-or-later",
+    "item": "http://www.wikidata.org/entity/Q27016756"
+  },
+  {
+    "name": "MulanPSL-1.0",
+    "item": "http://www.wikidata.org/entity/Q66563953"
+  },
+  {
+    "name": "ImageMagick",
+    "item": "http://www.wikidata.org/entity/Q27676327"
+  },
+  {
+    "name": "MulanPSL-2.0",
+    "item": "http://www.wikidata.org/entity/Q99634430"
+  },
+  {
+    "name": "SMLNJ",
+    "item": "http://www.wikidata.org/entity/Q99635287"
+  },
+  {
+    "name": "MMPL",
+    "item": "http://www.wikidata.org/entity/Q93043822"
+  },
+  {
+    "name": "libtiff",
+    "item": "http://www.wikidata.org/entity/Q105688056"
+  },
+  {
+    "name": "Xnet",
+    "item": "http://www.wikidata.org/entity/Q38346089"
+  },
+  {
+    "name": "GNU LGPL v3+",
+    "item": "http://www.wikidata.org/entity/Q27016762"
+  },
+  {
+    "name": "EPL-2.0",
+    "item": "http://www.wikidata.org/entity/Q55633295"
+  },
+  {
+    "name": "GPL-3.0-or-later",
+    "item": "http://www.wikidata.org/entity/Q27016754"
+  },
+  {
+    "name": "IPA",
+    "item": "http://www.wikidata.org/entity/Q38366264"
+  },
+  {
+    "name": "CC BY-NC-SA 3.0 TW",
+    "item": "http://www.wikidata.org/entity/Q110354772"
+  },
+  {
+    "name": "CC BY-NC-SA 2.0 KR",
+    "item": "http://www.wikidata.org/entity/Q58041147"
+  },
+  {
+    "name": "MIT-0",
+    "item": "http://www.wikidata.org/entity/Q67538600"
+  },
+  {
+    "name": "CC BY-NC-SA 3.0 IE",
+    "item": "http://www.wikidata.org/entity/Q105658155"
+  },
+  {
+    "name": "CC BY-NC-SA 3.0 IT",
+    "item": "http://www.wikidata.org/entity/Q108103640"
+  },
+  {
+    "name": "NTP",
+    "item": "http://www.wikidata.org/entity/Q38495487"
+  },
+  {
+    "name": "CATOSL-1.1",
+    "item": "http://www.wikidata.org/entity/Q38365570"
+  },
+  {
+    "name": "Nokia",
+    "item": "http://www.wikidata.org/entity/Q38495954"
+  },
+  {
+    "name": "CC BY-NC-SA 2.5",
+    "item": "http://www.wikidata.org/entity/Q19068212"
+  },
+  {
+    "name": "Multics",
+    "item": "http://www.wikidata.org/entity/Q38494754"
+  },
+  {
+    "name": "CC BY-NC-SA 3.0 US",
+    "item": "http://www.wikidata.org/entity/Q107464247"
+  },
+  {
+    "name": "CC BY-NC-SA 2.0",
+    "item": "http://www.wikidata.org/entity/Q28050835"
+  },
+  {
+    "name": "Motosoto",
+    "item": "http://www.wikidata.org/entity/Q38494497"
+  },
+  {
+    "name": "CC BY-NC-SA 3.0",
+    "item": "http://www.wikidata.org/entity/Q15643954"
+  },
+  {
+    "name": "CDDL-1.0",
+    "item": "http://www.wikidata.org/entity/Q26996811"
+  },
+  {
+    "name": "GNU AGPL v3",
+    "item": "http://www.wikidata.org/entity/Q27017232"
+  },
+  {
+    "name": "GFDL",
+    "item": "http://www.wikidata.org/entity/Q22169"
+  },
+  {
+    "name": "OGTSL",
+    "item": "http://www.wikidata.org/entity/Q38686558"
+  },
+  {
+    "name": "ODbL",
+    "item": "http://www.wikidata.org/entity/Q1224853"
+  },
+  {
+    "name": "EUPL",
+    "item": "http://www.wikidata.org/entity/Q1376919"
+  },
+  {
+    "name": "GNU GPL v2",
+    "item": "http://www.wikidata.org/entity/Q10513450"
+  },
+  {
+    "name": "CDDL-1.1",
+    "item": "http://www.wikidata.org/entity/Q26996804"
+  },
+  {
+    "name": "CC BY-NC-SA 3.0 CN",
+    "item": "http://www.wikidata.org/entity/Q113630051"
+  },
+  {
+    "name": "CC BY-NC-SA 3.0 DE",
+    "item": "http://www.wikidata.org/entity/Q105295756"
+  },
+  {
+    "name": "EUDatagrid",
+    "item": "http://www.wikidata.org/entity/Q38365944"
+  },
+  {
+    "name": "Naumen",
+    "item": "http://www.wikidata.org/entity/Q38495690"
+  },
+  {
+    "name": "Lion",
+    "item": "http://www.wikidata.org/entity/Q476915"
+  },
+  {
+    "name": "Sierra",
+    "item": "http://www.wikidata.org/entity/Q24575588"
+  },
+  {
+    "name": "Mojave",
+    "item": "http://www.wikidata.org/entity/Q54807273"
+  },
+  {
+    "name": "Tiger",
+    "item": "http://www.wikidata.org/entity/Q693478"
+  },
+  {
+    "name": "Catalina",
+    "item": "http://www.wikidata.org/entity/Q64351129"
+  },
+  {
+    "name": "Snow Leopard",
+    "item": "http://www.wikidata.org/entity/Q381215"
+  },
+  {
+    "name": "High Sierra",
+    "item": "http://www.wikidata.org/entity/Q30134996"
+  },
+  {
+    "name": "Mountain Lion",
+    "item": "http://www.wikidata.org/entity/Q63734"
+  },
+  {
+    "name": "Monterey",
+    "item": "http://www.wikidata.org/entity/Q107140155"
+  },
+  {
+    "name": "Big Sur",
+    "item": "http://www.wikidata.org/entity/Q96583789"
+  },
+  {
+    "name": "GFDL-1.2-only",
+    "item": "http://www.wikidata.org/entity/Q26921686"
+  },
+  {
+    "name": "Leopard",
+    "item": "http://www.wikidata.org/entity/Q222996"
+  },
+  {
+    "name": "El Capitan",
+    "item": "http://www.wikidata.org/entity/Q20056454"
+  },
+  {
+    "name": "Panther",
+    "item": "http://www.wikidata.org/entity/Q747434"
+  },
+  {
+    "name": "GPL-2.0-or-later",
+    "item": "http://www.wikidata.org/entity/Q27016752"
+  },
+  {
+    "name": "Mavericks",
+    "item": "http://www.wikidata.org/entity/Q13426234"
+  },
+  {
+    "name": "Yosemite",
+    "item": "http://www.wikidata.org/entity/Q17107792"
+  },
+  {
+    "name": "GPL-1.0-or-later",
+    "item": "http://www.wikidata.org/entity/Q27016750"
+  },
+  {
+    "name": "Unlicense",
+    "item": "http://www.wikidata.org/entity/Q21659044"
+  },
+  {
+    "name": "GNU GPL",
+    "item": "http://www.wikidata.org/entity/Q7603"
+  },
+  {
+    "name": "MS-RL",
+    "item": "http://www.wikidata.org/entity/Q1772828"
+  },
+  {
+    "name": "GNU AGPL",
+    "item": "http://www.wikidata.org/entity/Q1131681"
+  },
+  {
+    "name": "CC-PDDC",
+    "item": "http://www.wikidata.org/entity/Q114756497"
+  },
+  {
+    "name": "IJG",
+    "item": "http://www.wikidata.org/entity/Q106186423"
+  }
+]
