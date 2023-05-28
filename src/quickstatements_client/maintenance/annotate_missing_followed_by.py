@@ -1,20 +1,19 @@
-"""A maintenance script for adding missing "follows" relations to preprint/postprints."""
+"""A maintenance script for adding missing "followed by" relations to preprint/postprints."""
 
 from quickstatements_client.sources.utils import query_wikidata
 from quickstatements_client import EntityLine, QuickStatementsClient
 import click
 
-#: A SPARQL query that identifies preprints that are annotated
-#: with the "followed by" relationship to a postprint, but whose
-#: postprint doesn't have the "follows" relationship pointing
-#: backwards
+#: A SPARQL query that identifies postprints that are annotated
+#: with the "follows" relationship, but whose preprint doesn't
+#: have the "followed by" relationship pointing backwards
 SPARQL = """\
 SELECT ?preprint ?postprint 
 WHERE {
   ?preprint wdt:P31 wd:Q580922 .
-  ?preprint wdt:P156 ?postprint .
+  ?postprint wdt:P155 ?preprint .
   FILTER NOT EXISTS {
-    ?postprint wdt:P155 ?preprint .
+    ?preprint wdt:P156 ?postprint .
   }
 }
 """
@@ -23,18 +22,18 @@ WHERE {
 @click.command()
 @click.option("--non-interactive", is_flag=True)
 def main(non_interactive: bool):
-    """Add missing "follows" relationships to postprints."""
+    """Add missing "followed by" relationships to preprints."""
     lines = [
         EntityLine(
-            subject=record["postprint"],
-            predicate="P155",
-            target=record["preprint"],
+            subject=record["preprint"],
+            predicate="P156",
+            target=record["postprint"],
         )
         for record in query_wikidata(SPARQL)
     ]
     client = QuickStatementsClient()
     if non_interactive:
-        client.post(lines, batch_name="Preprint Maintenance")
+        client.post(lines, batch_name="Postprint Maintenance")
     else:
         client.open_new_tab(lines)
 
