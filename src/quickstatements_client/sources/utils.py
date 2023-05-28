@@ -6,6 +6,8 @@ from typing import Any, List, Mapping
 
 import requests
 
+from ..version import get_version
+
 __all__ = [
     "WIKIDATA_ENDPOINT",
     "query_wikidata",
@@ -22,7 +24,12 @@ def query_wikidata(sparql: str) -> List[Mapping[str, Any]]:
     :param sparql: A SPARQL query string
     :return: A list of bindings
     """
-    res = requests.get(WIKIDATA_ENDPOINT, params={"query": sparql, "format": "json"})
+    headers = {
+        "User-Agent": f"quickstatements_client v{get_version()}",
+    }
+    res = requests.get(
+        WIKIDATA_ENDPOINT, params={"query": sparql, "format": "json"}, headers=headers
+    )
     res.raise_for_status()
     res_json = res.json()
     return [
