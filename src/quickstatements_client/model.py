@@ -169,8 +169,8 @@ class BaseLine(BaseModel):
 
     subject: str = Field(regex=r"^(LAST)|(Q\d+)$")
     predicate: str = Field(
-        regex=r"^(P\d+)|(Len)|(Den)$",
-        description="Either a predicate, `Len` (label), or `Den` (description)",
+        regex=r"^(P\d+)|([ADE]{1}[a-z]{2})$",
+        description="Either a predicate, Label, Alt. Label, or Description",
     )
     qualifiers: List[Qualifier] = Field(default_factory=list)
 
