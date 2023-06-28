@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Tuple, Union
 
 from quickstatements_client.model import (
+    BaseLine,
     DateQualifier,
     EntityLine,
     EntityQualifier,
@@ -21,6 +22,19 @@ SAMPLE_ORCID_PATH = HERE.joinpath("sample_orcid.json")
 
 class TestQuickStatements(unittest.TestCase):
     """Tests for quickstatements."""
+
+    def test_base_line(self):
+        """Test instantiating the base line object."""
+        for subject, predicate in [
+            ("LAST", "Len"),
+            ("LAST", "Den"),
+            ("Q1234", "Len"),
+            ("Q1234", "Den"),
+            ("LAST", "P1234"),
+            ("Q1234", "P1234"),
+        ]:
+            with self.subTest(subject=subject, prediate=predicate):
+                BaseLine(subject=subject, predicate=predicate)
 
     def test_prepare_date(self):
         """Test the date cleaning function."""
