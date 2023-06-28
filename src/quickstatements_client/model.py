@@ -25,6 +25,9 @@ __all__ = [
 ]
 
 
+from .iso639 import ISO639
+
+
 class EntityQualifier(BaseModel):
     """A qualifier that points to Wikidata entity."""
 
@@ -168,6 +171,10 @@ class BaseLine(BaseModel):
     """A shared model for entity and text lines."""
 
     subject: str = Field(regex=r"^(LAST)|(Q\d+)$")
+    # Check for valid predicate. Predicates must start with upper case letter P,
+    # followed by a sequence of digit of minimal length 1. Alternatively, a predicate
+    # can be a Label, Alternative label, or Description, starting with uppercase A,L, or D, respectively,
+    # followed by a ISO639 language code.
     predicate: str = Field(
         regex=r"^(P\d+)|([ADE]{1}[a-z]{2})$",
         description="Either a predicate, Label, Alt. Label, or Description",
