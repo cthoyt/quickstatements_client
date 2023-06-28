@@ -115,6 +115,9 @@ class TestQuickStatements(unittest.TestCase):
         # A line with No Language description
         line = TextLine(subject="Q1", predicate="DNL.", target="XXX")
 
+        # A line with a label (L).
+        line = TextLine(subject="Q1", predicate="Lde.", target="XXX")
+
         del line
 
         # A line with not existing language should throw.

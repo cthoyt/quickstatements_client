@@ -177,7 +177,7 @@ class BaseLine(BaseModel):
     # followed by a ISO639 language code (stored in the set ISO639, see top of this file.).
 
     # Compile all language code into regex patterns separated by logical or ("|")
-    lang_patterns = "|".join(["([ADE]{{1}}{})".format(code) for code in ISO639])
+    lang_patterns = "|".join(["([ADL]{{1}}{})".format(code) for code in ISO639])
     predicate: str = Field(
         regex=r"^(P\d+)|" + lang_patterns + "$",
         description="Either a predicate, Label, Alt. Label, or Description",
