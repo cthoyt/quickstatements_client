@@ -30,6 +30,8 @@ class TestQuickStatements(unittest.TestCase):
             ("LAST", "Den"),
             ("Q1234", "Len"),
             ("Q1234", "Den"),
+            ("LAST", "P1234"),
+            ("Q1234", "P1234"),
         ]:
             with self.subTest(subject=subject, prediate=predicate):
                 BaseLine(subject=subject, predicate=predicate)
