@@ -1,4 +1,8 @@
-""" Provides all ISO-639 two and three letter language codes, see e.g. https://www.wikidata.org/wiki/Help:Wikimedia_language_codes/lists/all """
+"""
+:module iso639: Provides all ISO-639 two and three letter language codes.
+
+See e.g. https://www.wikidata.org/wiki/Help:Wikimedia_language_codes/lists/all.
+"""
 
 ISO639 = (
     "NL.",
@@ -503,4 +507,4 @@ ISO639 = (
     "zh-yue",
     "zu",
     "zun",
-    )
+)

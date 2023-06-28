@@ -88,11 +88,24 @@ class TestQuickStatements(unittest.TestCase):
         self.assertEqual('Q47475003|P1449|"Charlie"', nickname_line.get_line())
 
     def test_iso639_length(self):
-        """ Test that we have 502 language codes."""
-
+        """Test that we have 502 language codes."""
         from quickstatements_client.model import ISO639
 
         self.assertEqual(len(ISO639), 502)
+
+    def test_text_line_label(self):
+        """Test construction of a TextLine with a label."""
+        # A line with a french label.
+        line = TextLine(subject="Q1", predicate="Afr", target="Le monde")
+
+        # A line with No Language description
+        line = TextLine(subject="Q1", predicate="DNL.", target="XXX")
+
+        del line
+
+        # A line with not existing language should throw.
+        self.assertRaises(Exception, TextLine, "Q1", "Lxyz", "XXX")
+
 
 def _get_date(
     entry, start_or_end="start"

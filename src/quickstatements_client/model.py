@@ -24,7 +24,7 @@ __all__ = [
     "lines_to_new_tab",
 ]
 
-
+# Import the language codes locally.
 from .iso639 import ISO639
 
 
@@ -174,9 +174,12 @@ class BaseLine(BaseModel):
     # Check for valid predicate. Predicates must start with upper case letter P,
     # followed by a sequence of digit of minimal length 1. Alternatively, a predicate
     # can be a Label, Alternative label, or Description, starting with uppercase A,L, or D, respectively,
-    # followed by a ISO639 language code.
+    # followed by a ISO639 language code (stored in the set ISO639, see top of this file.).
+
+    # Compile all language code into regex patterns separated by logical or ("|")
+    lang_patterns = "|".join(["([ADE]{{1}}{})".format(code) for code in ISO639])
     predicate: str = Field(
-        regex=r"^(P\d+)|([ADE]{1}[a-z]{2})$",
+        regex=r"^(P\d+)|" + lang_patterns + "$",
         description="Either a predicate, Label, Alt. Label, or Description",
     )
     qualifiers: List[Qualifier] = Field(default_factory=list)
