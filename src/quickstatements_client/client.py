@@ -64,7 +64,11 @@ class QuickStatementsClient:
             data=render_lines(lines),
             batchname=batch_name,
         )
-        res = requests.post(self.endpoint, data=params.dict())
+        res = requests.post(
+            self.endpoint,
+            data=params.dict(),
+            timeout=300,
+        )
         return Response.parse_obj(res.json())
 
     @staticmethod

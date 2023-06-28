@@ -1,14 +1,15 @@
 """A maintenance script for adding missing "followed by" relations to preprint/postprints."""
 
-from quickstatements_client.sources.utils import query_wikidata
-from quickstatements_client import EntityLine, QuickStatementsClient
 import click
+
+from quickstatements_client import EntityLine, QuickStatementsClient
+from quickstatements_client.sources.utils import query_wikidata
 
 #: A SPARQL query that identifies postprints that are annotated
 #: with the "follows" relationship, but whose preprint doesn't
 #: have the "followed by" relationship pointing backwards
 SPARQL = """\
-SELECT ?preprint ?postprint 
+SELECT ?preprint ?postprint
 WHERE {
   ?preprint wdt:P31 wd:Q580922 .
   ?postprint wdt:P155 ?preprint .

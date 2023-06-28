@@ -28,7 +28,10 @@ def query_wikidata(sparql: str) -> List[Mapping[str, Any]]:
         "User-Agent": f"quickstatements_client v{get_version()}",
     }
     res = requests.get(
-        WIKIDATA_ENDPOINT, params={"query": sparql, "format": "json"}, headers=headers
+        WIKIDATA_ENDPOINT,
+        params={"query": sparql, "format": "json"},
+        headers=headers,
+        timeout=300,
     )
     res.raise_for_status()
     res_json = res.json()

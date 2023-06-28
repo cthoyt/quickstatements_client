@@ -115,7 +115,9 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
     :yields: QuickStatements lines
     """
     pypi_project = pypi_project.replace("_", "-")
-    metadata = requests.get(f"https://pypi.org/pypi/{pypi_project}/json").json()["info"]
+    metadata = requests.get(f"https://pypi.org/pypi/{pypi_project}/json", timeout=300).json()[
+        "info"
+    ]
 
     package_qid = get_package_qid(pypi_project)
     if not package_qid:
