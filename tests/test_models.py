@@ -6,6 +6,8 @@ import unittest
 from pathlib import Path
 from typing import Tuple, Union
 
+import pydantic.error_wrappers
+
 from quickstatements_client.model import (
     BaseLine,
     DateQualifier,
@@ -35,6 +37,20 @@ class TestQuickStatements(unittest.TestCase):
         ]:
             with self.subTest(subject=subject, prediate=predicate):
                 BaseLine(subject=subject, predicate=predicate)
+
+        for subject, predicate, text in [
+            ("Q1", "Afr", "Le monde"),  # french
+            ("Q1", "DNL.", "XXX"),  # no language description
+            ("Q1", "Lde.", "XXX"),
+        ]:
+            with self.subTest(subject=subject, prediate=predicate, text=text):
+                TextLine(subject=subject, predicate=predicate, target=text)
+
+        for subject, predicate, text in [("Q1", "Lxyz", "XXX")]:
+            with self.subTest(subject=subject, prediate=predicate, text=text), self.assertRaises(
+                pydantic.error_wrappers.ValidationError
+            ):
+                TextLine(subject=subject, predicate=predicate, target=text)
 
     def test_prepare_date(self):
         """Test the date cleaning function."""
@@ -100,28 +116,6 @@ class TestQuickStatements(unittest.TestCase):
             target="Charlie",
         )
         self.assertEqual('Q47475003|P1449|"Charlie"', nickname_line.get_line())
-
-    def test_iso639_length(self):
-        """Test that we have 502 language codes."""
-        from quickstatements_client.model import ISO639
-
-        self.assertEqual(len(ISO639), 502)
-
-    def test_text_line_label(self):
-        """Test construction of a TextLine with a label."""
-        # A line with a french label.
-        line = TextLine(subject="Q1", predicate="Afr", target="Le monde")
-
-        # A line with No Language description
-        line = TextLine(subject="Q1", predicate="DNL.", target="XXX")
-
-        # A line with a label (L).
-        line = TextLine(subject="Q1", predicate="Lde.", target="XXX")
-
-        del line
-
-        # A line with not existing language should throw.
-        self.assertRaises(Exception, TextLine, "Q1", "Lxyz", "XXX")
 
 
 def _get_date(

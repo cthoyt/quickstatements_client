@@ -8,6 +8,8 @@ from urllib.parse import quote
 from pydantic import BaseModel, Field
 from typing_extensions import Annotated, Literal, get_args
 
+from .language_codes import LANGUAGE_CODES
+
 __all__ = [
     # Data model
     "EntityQualifier",
@@ -23,9 +25,6 @@ __all__ = [
     "lines_to_url",
     "lines_to_new_tab",
 ]
-
-# Import the language codes locally.
-from .iso639 import ISO639
 
 
 class EntityQualifier(BaseModel):
@@ -171,16 +170,23 @@ class BaseLine(BaseModel):
     """A shared model for entity and text lines."""
 
     subject: str = Field(regex=r"^(LAST)|(Q\d+)$")
-    # Check for valid predicate. Predicates must start with upper case letter P,
-    # followed by a sequence of digit of minimal length 1. Alternatively, a predicate
-    # can be a Label, Alternative label, or Description, starting with uppercase A,L, or D, respectively,
-    # followed by a ISO639 language code (stored in the set ISO639, see top of this file.).
-
-    # Compile all language code into regex patterns separated by logical or ("|")
-    lang_patterns = "|".join(["([ADL]{{1}}{})".format(code) for code in ISO639])
     predicate: str = Field(
-        regex=r"^(P\d+)|" + lang_patterns + "$",
-        description="Either a predicate, Label, Alt. Label, or Description",
+        regex=rf"^(P\d+)|([ADL]({'|'.join(LANGUAGE_CODES)}))$",
+        description="""\
+        The predicate can be one of two things:
+
+        1. A Wikidata predicate, which starts with an upper case letter P, followed by a sequence of digits
+        2. A combination of a single letter command code and an ISO639 language code.
+           The single letter command codes can be:
+           - ``L`` for label
+           - ``A`` for alias (i.e., synonym)
+           - ``D`` for description
+
+           See Wikidata documentation at https://www.wikidata.org/w/index.php?title=Help:QuickStatements&\
+section=6#Adding_labels,_aliases,_descriptions_and_sitelinks
+
+        To do: add support for sitelinks.
+        """,
     )
     qualifiers: List[Qualifier] = Field(default_factory=list)
 
