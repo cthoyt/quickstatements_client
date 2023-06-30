@@ -8,6 +8,8 @@ from urllib.parse import quote
 from pydantic import BaseModel, Field
 from typing_extensions import Annotated, Literal, get_args
 
+from .language_codes import LANGUAGE_CODES
+
 __all__ = [
     # Data model
     "EntityQualifier",
@@ -169,8 +171,22 @@ class BaseLine(BaseModel):
 
     subject: str = Field(regex=r"^(LAST)|(Q\d+)$")
     predicate: str = Field(
-        regex=r"^(P\d+)|(Len)|(Den)$",
-        description="Either a predicate, `Len` (label), or `Den` (description)",
+        regex=rf"^(P\d+)|([ADL]({'|'.join(LANGUAGE_CODES)}))$",
+        description="""\
+        The predicate can be one of two things:
+
+        1. A Wikidata predicate, which starts with an upper case letter P, followed by a sequence of digits
+        2. A combination of a single letter command code and an ISO639 language code.
+           The single letter command codes can be:
+           - ``L`` for label
+           - ``A`` for alias (i.e., synonym)
+           - ``D`` for description
+
+           See Wikidata documentation at https://www.wikidata.org/w/index.php?title=Help:QuickStatements&\
+section=6#Adding_labels,_aliases,_descriptions_and_sitelinks
+
+        To do: add support for sitelinks.
+        """,
     )
     qualifiers: List[Qualifier] = Field(default_factory=list)
 
