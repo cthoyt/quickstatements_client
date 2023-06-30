@@ -41,7 +41,7 @@ class TestQuickStatements(unittest.TestCase):
         for subject, predicate, text in [
             ("Q1", "Afr", "Le monde"),  # french
             ("Q1", "DNL.", "XXX"),  # no language description
-            ("Q1", "Lde.", "XXX"),
+            ("Q1", "Lde", "XXX"),
         ]:
             with self.subTest(subject=subject, prediate=predicate, text=text):
                 TextLine(subject=subject, predicate=predicate, target=text)
