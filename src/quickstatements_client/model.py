@@ -27,12 +27,20 @@ __all__ = [
 ]
 
 
+def _safe_field(*, regex: Optional[str] = None, **kwargs) -> Field:
+    try:
+        rv = Field(regex=regex, **kwargs)
+    except TypeError:
+        rv = Field(pattern=regex)
+    return rv
+
+
 class EntityQualifier(BaseModel):
     """A qualifier that points to Wikidata entity."""
 
     type: Literal["Entity"] = "Entity"
-    predicate: str = Field(regex=r"^[PQS]\d+$")
-    target: str = Field(regex=r"^[PQS]\d+$")
+    predicate: str = _safe_field(regex=r"^[PQS]\d+$")
+    target: str = _safe_field(regex=r"^[PQS]\d+$")
 
     def get_target(self) -> str:
         """Get the target wikidata identifier."""
@@ -43,7 +51,7 @@ class DateQualifier(BaseModel):
     """A qualifier that points to a date string."""
 
     type: Literal["Date"] = "Date"
-    predicate: str = Field(regex=r"^[PQS]\d+$")
+    predicate: str = _safe_field(regex=r"^[PQS]\d+$")
     target: str
 
     def get_target(self) -> str:
@@ -142,7 +150,7 @@ class TextQualifier(BaseModel):
     """A qualifier that points to a string literal."""
 
     type: Literal["Text"] = "Text"
-    predicate: str = Field(regex=r"^[PQS]\d+$")
+    predicate: str = _safe_field(regex=r"^[PQS]\d+$")
     target: str
 
     def get_target(self) -> str:
@@ -169,8 +177,8 @@ class CreateLine(BaseModel):
 class BaseLine(BaseModel):
     """A shared model for entity and text lines."""
 
-    subject: str = Field(regex=r"^(LAST)|(Q\d+)$")
-    predicate: str = Field(
+    subject: str = _safe_field(regex=r"^(LAST)|(Q\d+)$")
+    predicate: str = _safe_field(
         regex=rf"^(P\d+)|([ADL]({'|'.join(LANGUAGE_CODES)}))$",
         description="""\
         The predicate can be one of two things:
@@ -207,7 +215,7 @@ class EntityLine(BaseLine):
     """A line whose target is a string literal."""
 
     type: Literal["Entity"] = "Entity"
-    target: str = Field(regex=r"^Q\d+$")
+    target: str = _safe_field(regex=r"^Q\d+$")
 
 
 class TextLine(BaseLine):
