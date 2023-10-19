@@ -51,11 +51,13 @@ def get_orcid_qid(orcid: str) -> Optional[str]:
     return get_qid("P496", orcid)
 
 
-def iter_orcid_lines(orcid: str, create: bool = True) -> Iterable[Line]:
+def iter_orcid_lines(orcid: str, create: bool = True, append: bool = False) -> Iterable[Line]:
     """Yield QuickStatements lines about a person from ORCID.
 
     :param orcid: The target ORCID identifier
-    :param create: Should a new QID be created if none can be found?
+    :param create: Should a new QID be created if none can be found? Defaults to true.
+    :param append: Should lines be added to an existing QID? Defaults to false.
+        If set to true, could make duplicate statements on an existing QID.
     :yields: QuickStatements lines
     """
     _raise_on_invalid_orcid(orcid)
@@ -69,6 +71,8 @@ def iter_orcid_lines(orcid: str, create: bool = True) -> Iterable[Line]:
         name = data["name"]
         yield TextLine(subject=orcid_qid, predicate="Len", target=name)
         yield TextLine(subject=orcid_qid, predicate="Den", target=f"Researcher ORCID={orcid}")
+    elif not append:
+        return
 
     pypi_qualifier = TextQualifier(
         predicate="S854",  # reference URL

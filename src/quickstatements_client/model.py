@@ -244,8 +244,15 @@ def lines_to_url(lines: Iterable[Line]) -> str:
     return f"https://quickstatements.toolforge.org/#/v1={quoted_qs}"
 
 
-def lines_to_new_tab(lines: Iterable[Line]):
-    """Open a web browser on the host system."""
+def lines_to_new_tab(lines: Iterable[Line]) -> bool:
+    """Open a web browser on the host system.
+
+    :param lines: QuickStatements lines
+    :returns: If a web browser was successfully invoked (via :func:`webbrowser.open`)
+    """
+    lines = list(lines)
+    if not lines:
+        return False
     return webbrowser.open_new_tab(lines_to_url(lines))
 
 
