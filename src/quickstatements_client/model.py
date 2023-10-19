@@ -31,7 +31,7 @@ def _safe_field(*, regex: Optional[str] = None, **kwargs) -> Field:
     try:
         rv = Field(regex=regex, **kwargs)
     except TypeError:
-        rv = Field(pattern=regex)
+        rv = Field(pattern=regex, **kwargs)
     return rv
 
 
