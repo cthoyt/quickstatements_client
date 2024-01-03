@@ -5,6 +5,7 @@
 .. seealso:: More detailed functionality is implemented in https://github.com/lubianat/pyorcidator
 """
 
+import logging
 import re
 from typing import Iterable, Optional
 
@@ -22,6 +23,7 @@ from quickstatements_client.sources.utils import get_qid
 
 __all__ = ["get_orcid_data", "get_orcid_qid", "iter_orcid_lines"]
 
+logger = logging.getLogger(__name__)
 
 ORCID_RE = re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}(\d|X)$")
 
@@ -31,14 +33,28 @@ def _raise_on_invalid_orcid(orcid: str) -> None:
         raise ValueError
 
 
-def get_orcid_data(orcid: str):
+def get_orcid_data(orcid: str) -> None | dict[str, str]:
     """Get data from the ORCID API."""
     _raise_on_invalid_orcid(orcid)
     res = requests.get(
         f"https://orcid.org/{orcid}", headers={"Accept": "application/json"}, timeout=10
     ).json()
-    name_dict = res["person"]["name"]
-    name = name_dict["given-names"]["value"] + " " + name_dict["family-name"]["value"]
+    person = res.get("person")
+    if not person:
+        logger.warning("%s got no data: %s", orcid, res)
+        return None
+    name_dict = person.get("name")
+    if not name_dict:
+        logger.warning("%s missing name dict: %s", orcid, person)
+        return None
+
+    given_names = name_dict.get("given-names")
+    family_names = name_dict.get("family-name")
+    if not given_names or not family_names:
+        logger.warning("%s missing name: %s", orcid, person)
+        return None
+
+    name = given_names["value"] + " " + family_names["value"]
     rv = {
         "name": name,
     }
@@ -65,6 +81,8 @@ def iter_orcid_lines(orcid: str, create: bool = True, append: bool = False) -> I
     orcid_qid = get_orcid_qid(orcid)
     if not orcid_qid:
         if not create:
+            return
+        if not data:
             return
         yield CreateLine()
         orcid_qid = "LAST"
