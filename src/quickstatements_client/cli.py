@@ -17,6 +17,8 @@ import logging
 
 import click
 
+from quickstatements_client.sources import orcid, pypi
+
 __all__ = [
     "main",
 ]
@@ -28,6 +30,10 @@ logger = logging.getLogger(__name__)
 @click.version_option()
 def main():
     """CLI for quickstatements_client."""
+
+
+main.add_command(orcid.main)
+main.add_command(pypi.main)
 
 
 if __name__ == "__main__":

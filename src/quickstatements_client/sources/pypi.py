@@ -8,6 +8,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Iterable, Mapping, Optional, Sequence
 
+import click
 import requests
 
 from quickstatements_client.model import (
@@ -250,8 +251,14 @@ def _dict_get(data: Mapping[str, str], keys: Sequence[str]) -> Optional[str]:
     return None
 
 
-if __name__ == "__main__":
+@click.command(name="pypi")
+@click.argument("package")
+def main(package: str):
+    """Add a PyPI package to Wikidata."""
     from quickstatements_client.model import lines_to_new_tab
 
-    # print(render_lines(iter_pypi_lines("quickstatements-client"), sep="\t", newline="\n"))
-    lines_to_new_tab(iter_pypi_lines("bioregistry"))
+    lines_to_new_tab(iter_pypi_lines(package))
+
+
+if __name__ == "__main__":
+    main("bioregistry")

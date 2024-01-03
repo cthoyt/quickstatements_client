@@ -9,6 +9,7 @@ import logging
 import re
 from typing import Iterable, Optional
 
+import click
 import requests
 
 from quickstatements_client.model import (
@@ -119,7 +120,14 @@ def iter_orcid_lines(orcid: str, create: bool = True, append: bool = False) -> I
     )
 
 
-if __name__ == "__main__":
+@click.command(name="orcid")
+@click.argument("orcid")
+def main(orcid: str):
+    """Add an ORCID to Wikidata."""
     from quickstatements_client.model import lines_to_new_tab
 
-    lines_to_new_tab(iter_orcid_lines("0000-0001-6677-8489"))
+    lines_to_new_tab(iter_orcid_lines(orcid))
+
+
+if __name__ == "__main__":
+    main("0000-0001-6677-8489")
