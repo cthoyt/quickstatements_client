@@ -1,7 +1,4 @@
-"""A client to the QuickStatements API.
-
-1. Get a token from
-"""
+"""A client to the QuickStatements API."""
 
 import webbrowser
 from typing import Optional, Sequence
@@ -83,7 +80,7 @@ class Post(BaseModel):
     username: str = Field(...)
     token: str = Field(...)
     data: str = Field(...)
-    batchname: Optional[str] = Field()
+    batchname: Optional[str] = Field(None)
     compress: int = Field(
         0, description="[optional; deactivates compression of CREATE and following LAST commands]"
     )

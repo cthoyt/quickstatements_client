@@ -1,5 +1,7 @@
 """A maintenance script for adding missing "follows" relations to preprint/postprints."""
 
+import sys
+
 import click
 
 from quickstatements_client import EntityLine, QuickStatementsClient
@@ -33,6 +35,9 @@ def main(non_interactive: bool):
         )
         for record in query_wikidata(SPARQL)
     ]
+    if not lines:
+        click.secho("No 'follows' relations to add", fg="yellow")
+        return sys.exit(0)
     client = QuickStatementsClient()
     if non_interactive:
         client.post(lines, batch_name="Preprint Maintenance")
