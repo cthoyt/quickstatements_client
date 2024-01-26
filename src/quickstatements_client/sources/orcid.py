@@ -7,7 +7,7 @@
 
 import logging
 import re
-from typing import Iterable, Optional
+from typing import Dict, Iterable, Optional
 
 import click
 import requests
@@ -34,7 +34,7 @@ def _raise_on_invalid_orcid(orcid: str) -> None:
         raise ValueError
 
 
-def get_orcid_data(orcid: str) -> None | dict[str, str]:
+def get_orcid_data(orcid: str) -> Optional[Dict[str, str]]:
     """Get data from the ORCID API."""
     _raise_on_invalid_orcid(orcid)
     res = requests.get(

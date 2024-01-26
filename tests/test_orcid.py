@@ -1,4 +1,5 @@
 """Tests for ORCID."""
+
 import unittest
 
 from quickstatements_client import CreateLine, EntityLine, TextLine
