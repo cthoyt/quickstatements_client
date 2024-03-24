@@ -10,15 +10,20 @@ from ..version import get_version
 
 __all__ = [
     "WIKIDATA_ENDPOINT",
+    "TimeoutHint",
     "query_wikidata",
     "removeprefix",
+    "get_qid",
 ]
 
 #: Wikidata SPARQL endpoint. See https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service#Interfacing
 WIKIDATA_ENDPOINT = "https://query.wikidata.org/bigdata/namespace/wdq/sparql"
 
+#: A type hint for the timeout in :func:`requests.get`
+TimeoutHint = None | int | float | tuple[float | int, float | int]
 
-def query_wikidata(sparql: str, timeout: Optional[float] = None) -> List[Mapping[str, Any]]:
+
+def query_wikidata(sparql: str, timeout: TimeoutHint = None) -> List[Mapping[str, Any]]:
     """Query Wikidata's sparql service.
 
     :param sparql: A SPARQL query string
@@ -56,7 +61,7 @@ def _clean_value(value: str) -> str:
     return value
 
 
-def get_qid(prop: str, value: str, timeout: Optional[float] = None) -> Optional[str]:
+def get_qid(prop: str, value: str, timeout: TimeoutHint = None) -> Optional[str]:
     """Get the Wikidata item's QID based on the given property and value."""
     query = f'SELECT ?item WHERE {{ ?item wdt:{prop} "{value}" . }} LIMIT 1'
     records = query_wikidata(query, timeout=timeout)
