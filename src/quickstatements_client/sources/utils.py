@@ -4,7 +4,7 @@
 
 from __future__ import annotations
 
-from typing import Any, List, Mapping, Optional
+from typing import Any, List, Mapping, Optional, Tuple, Union
 
 import requests
 from typing_extensions import TypeAlias
@@ -23,7 +23,7 @@ __all__ = [
 WIKIDATA_ENDPOINT = "https://query.wikidata.org/bigdata/namespace/wdq/sparql"
 
 #: A type hint for the timeout in :func:`requests.get`
-TimeoutHint: TypeAlias = None | int | float | tuple[float | int, float | int]
+TimeoutHint: TypeAlias = Union[None, int, float, Tuple[Union[float, int], Union[float, int]]]
 
 
 def query_wikidata(sparql: str, timeout: TimeoutHint = None) -> List[Mapping[str, Any]]:
