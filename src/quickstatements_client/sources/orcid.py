@@ -20,7 +20,7 @@ from quickstatements_client.model import (
     TextLine,
     TextQualifier,
 )
-from quickstatements_client.sources.utils import get_qid
+from quickstatements_client.sources.utils import TimeoutHint, get_qid
 
 __all__ = ["get_orcid_data", "get_orcid_qid", "iter_orcid_lines"]
 
@@ -34,11 +34,13 @@ def _raise_on_invalid_orcid(orcid: str) -> None:
         raise ValueError
 
 
-def get_orcid_data(orcid: str) -> Optional[Dict[str, str]]:
+def get_orcid_data(orcid: str, *, timeout: TimeoutHint = None) -> Optional[Dict[str, str]]:
     """Get data from the ORCID API."""
     _raise_on_invalid_orcid(orcid)
+    if timeout is not None:
+        timeout = 10.0
     res = requests.get(
-        f"https://orcid.org/{orcid}", headers={"Accept": "application/json"}, timeout=10
+        f"https://orcid.org/{orcid}", headers={"Accept": "application/json"}, timeout=timeout
     ).json()
     person = res.get("person")
     if not person:
