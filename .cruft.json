@@ -11,7 +11,7 @@
       "author_email": "cthoyt@gmail.com",
       "github_organization_name": "cthoyt",
       "github_repository_name": "quickstatements-client",
-      "command_line_interface": "True",
+      "command_line_interface": true,
       "_template": "https://github.com/cthoyt/cookiecutter-snekpack"
     }
   },
