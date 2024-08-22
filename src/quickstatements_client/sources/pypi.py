@@ -232,7 +232,9 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
 
         requirement_qid = get_package_qid(first_part)
         if not requirement_qid:
-            logger.warning(f"[pypi:{pypi_project}] could not look up requirement: {requirement} (parsed out {first_part})")
+            logger.warning(
+                f"[pypi:{pypi_project}] could not look up requirement: {requirement} (parsed out {first_part})"
+            )
             continue
         yield EntityLine(
             subject=package_qid,
