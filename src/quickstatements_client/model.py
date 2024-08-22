@@ -1,6 +1,7 @@
 """A data model for quickstatements."""
 
 import datetime
+import logging
 import webbrowser
 from typing import Iterable, List, Optional, Sequence, Type, Union
 from urllib.parse import quote
@@ -19,12 +20,15 @@ __all__ = [
     "CreateLine",
     "TextLine",
     "EntityLine",
+    "DateLine",
     "Line",
     # Line renderers
     "render_lines",
     "lines_to_url",
     "lines_to_new_tab",
 ]
+
+logger = logging.getLogger(__name__)
 
 
 def _safe_field(*, regex: Optional[str] = None, **kwargs) -> Field:
@@ -59,15 +63,31 @@ class DateQualifier(BaseModel):
         return self.target
 
     @classmethod
+    def point_in_time(
+        cls,
+        target: Union[str, datetime.datetime, datetime.date],
+        *,
+        precision: Optional[int] = None,
+    ) -> "DateQualifier":
+        """Get a qualifier for a point in time."""
+        return cls(predicate="P585", target=prepare_date(target, precision=precision))
+
+    @classmethod
     def start_time(
-        cls, target: Union[str, datetime.datetime], *, precision: Optional[int] = None
+        cls,
+        target: Union[str, datetime.datetime, datetime.date],
+        *,
+        precision: Optional[int] = None,
     ) -> "DateQualifier":
         """Get a qualifier for a start time."""
         return cls(predicate="P580", target=prepare_date(target, precision=precision))
 
     @classmethod
     def end_time(
-        cls, target: Union[str, datetime.datetime], *, precision: Optional[int] = None
+        cls,
+        target: Union[str, datetime.datetime, datetime.date],
+        *,
+        precision: Optional[int] = None,
     ) -> "DateQualifier":
         """Get a qualifier for an end time."""
         return cls(predicate="P582", target=prepare_date(target, precision=precision))
@@ -96,14 +116,19 @@ def format_date(
     return f"+{year:04}-{month:02}-{day:02}T{hour:02}:{minute:02}:{second:02}Z/{precision}"
 
 
-def prepare_date(target: Union[str, datetime.datetime], *, precision: Optional[int] = None) -> str:
+def prepare_date(
+    target: Union[str, datetime.datetime, datetime.date], *, precision: Optional[int] = None
+) -> str:
     """Prepare a date for quickstatements."""
     if isinstance(target, str):
         return target
-    if not isinstance(target, datetime.datetime):
+    if not isinstance(target, (datetime.datetime, datetime.date)):
         raise TypeError
     if precision is None:
         precision = 11
+    if isinstance(target, datetime.date) and precision > 11:
+        precision = 11
+        logger.warning("Can not have higher precision on a datetime.date input than 11")
     # See section on precision in https://www.wikidata.org/wiki/Help:Dates#Precision
     if precision == 11:  # day precision
         return format_date(
@@ -114,6 +139,8 @@ def prepare_date(target: Union[str, datetime.datetime], *, precision: Optional[i
     elif precision == 9:  # year precision
         return format_date(precision=precision, year=target.year)
     elif precision == 12:  # hour precision
+        if not isinstance(target, datetime.datetime):
+            raise RuntimeError
         return format_date(
             precision=precision,
             year=target.year,
@@ -122,6 +149,8 @@ def prepare_date(target: Union[str, datetime.datetime], *, precision: Optional[i
             hour=target.hour,
         )
     elif precision == 13:  # minute precision
+        if not isinstance(target, datetime.datetime):
+            raise RuntimeError
         return format_date(
             precision=precision,
             year=target.year,
@@ -131,6 +160,8 @@ def prepare_date(target: Union[str, datetime.datetime], *, precision: Optional[i
             minute=target.minute,
         )
     elif precision == 14:  # second precision
+        if not isinstance(target, datetime.datetime):
+            raise RuntimeError
         return format_date(
             precision=precision,
             year=target.year,
@@ -229,8 +260,20 @@ class TextLine(BaseLine):
         return f'"{self.target}"'
 
 
+class DateLine(BaseLine):
+    """A line whose target is a date/datetime."""
+
+    type: Literal["Date"] = "Date"
+    target: Union[datetime.datetime, datetime.date]
+    precision: Optional[int] = None
+
+    def get_target(self) -> str:
+        """Get the date literal line."""
+        return prepare_date(self.target, precision=self.precision)
+
+
 #: A union of the line types
-Line = Annotated[Union[CreateLine, EntityLine, TextLine], Field(discriminator="type")]
+Line = Annotated[Union[CreateLine, EntityLine, TextLine, DateLine], Field(discriminator="type")]
 
 
 def render_lines(lines: Iterable[Line], sep: str = "|", newline: str = "||") -> str:

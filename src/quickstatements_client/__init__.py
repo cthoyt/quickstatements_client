@@ -5,6 +5,7 @@
 from .client import QuickStatementsClient
 from .model import (
     CreateLine,
+    DateLine,
     DateQualifier,
     EntityLine,
     EntityQualifier,
@@ -28,6 +29,7 @@ __all__ = [
     "CreateLine",
     "TextLine",
     "EntityLine",
+    "DateLine",
     "Line",
     # Line renderers
     "render_lines",
