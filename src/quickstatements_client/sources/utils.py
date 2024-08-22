@@ -5,16 +5,15 @@
 from __future__ import annotations
 
 import re
-from typing import Any, List, Mapping, Optional, Tuple, Union
+from typing import Any, List, Mapping, Optional
 
 import requests
-from typing_extensions import TypeAlias
 
+from ..constants import TimeoutHint
 from ..version import get_version
 
 __all__ = [
     "WIKIDATA_ENDPOINT",
-    "TimeoutHint",
     "query_wikidata",
     "removeprefix",
     "get_qid",
@@ -27,9 +26,6 @@ WIKIDATA_PROP_REGEX = re.compile(r"^P[1-9]\d+$")
 
 #: Wikidata SPARQL endpoint. See https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service#Interfacing
 WIKIDATA_ENDPOINT = "https://query.wikidata.org/bigdata/namespace/wdq/sparql"
-
-#: A type hint for the timeout in :func:`requests.get`
-TimeoutHint: TypeAlias = Union[None, int, float, Tuple[Union[float, int], Union[float, int]]]
 
 
 def query_wikidata(sparql: str, timeout: TimeoutHint = None) -> List[Mapping[str, Any]]:

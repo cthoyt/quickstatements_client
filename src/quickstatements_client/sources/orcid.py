@@ -12,6 +12,7 @@ from typing import Dict, Iterable, Optional
 import click
 import requests
 
+from quickstatements_client.constants import TimeoutHint
 from quickstatements_client.model import (
     CreateLine,
     DateQualifier,
@@ -20,7 +21,7 @@ from quickstatements_client.model import (
     TextLine,
     TextQualifier,
 )
-from quickstatements_client.sources.utils import TimeoutHint, get_qid
+from quickstatements_client.sources.utils import get_qid
 
 __all__ = ["get_orcid_data", "get_orcid_qid", "iter_orcid_lines"]
 
