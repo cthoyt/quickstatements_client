@@ -2,7 +2,7 @@
 
 """A data model and client for Wikidata QuickStatements."""
 
-from .client import QuickStatementsClient
+from .client import QuickStatementsClient, post_lines
 from .model import (
     CreateLine,
     DateLine,
@@ -32,6 +32,7 @@ __all__ = [
     "DateLine",
     "Line",
     # Line renderers
+    "post_lines",
     "render_lines",
     "lines_to_url",
     "lines_to_new_tab",

@@ -17,6 +17,7 @@ __all__ = [
     "QuickStatementsClient",
     "Post",
     "Response",
+    "post_lines",
 ]
 
 
@@ -30,6 +31,21 @@ class Response(BaseModel):
     def batch_url(self) -> str:
         """Get the URL for the batch."""
         return f"https://quickstatements.toolforge.org/#/batch/{self.batch_id}"
+
+
+def post_lines(
+    lines: Iterable[Line], *, batch_name: Optional[str] = None, timeout: TimeoutHint = None
+) -> Response:
+    """Post lines to the QuickStatements using the default client.
+
+    :param lines: The QuickStatement lines to post
+    :param batch_name: The name of the batch
+    :param timeout: The timeout in seconds (defaults to 300)
+    :return: The response from the QuickStatements API
+    """
+    client = QuickStatementsClient()
+    response = client.post(lines, batch_name=batch_name, timeout=timeout)
+    return response
 
 
 class QuickStatementsClient:
