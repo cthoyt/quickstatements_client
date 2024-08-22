@@ -224,9 +224,15 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
         parts = requirement.split(" ", 1)
         if len(parts) > 1 and any("extra" in part for part in parts[1:]):
             continue
-        requirement_qid = get_package_qid(parts[0])
+
+        first_part = parts[0]
+        first_part, _, _ = first_part.partition("==")
+        first_part, _, _ = first_part.partition(">=")
+        first_part, _, _ = first_part.partition("<=")
+
+        requirement_qid = get_package_qid(first_part)
         if not requirement_qid:
-            logger.warning(f"[pypi:{pypi_project}] could not look up requirement: {parts[0]}")
+            logger.warning(f"[pypi:{pypi_project}] could not look up requirement: {requirement} (parsed out {first_part})")
             continue
         yield EntityLine(
             subject=package_qid,
