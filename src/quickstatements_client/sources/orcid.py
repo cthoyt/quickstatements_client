@@ -5,13 +5,10 @@
 .. seealso:: More detailed functionality is implemented in https://github.com/lubianat/pyorcidator
 """
 
+import click
 import logging
 import re
-from typing import Dict, Iterable, Optional
-
-import click
 import requests
-
 from quickstatements_client.constants import TimeoutHint
 from quickstatements_client.model import (
     CreateLine,
@@ -22,8 +19,14 @@ from quickstatements_client.model import (
     TextQualifier,
 )
 from quickstatements_client.sources.utils import get_qid
+from typing import Dict, Iterable, Optional
 
-__all__ = ["get_orcid_data", "get_orcid_qid", "iter_orcid_lines"]
+__all__ = [
+    "get_orcid_data",
+    "get_orcid_name",
+    "get_orcid_qid",
+    "iter_orcid_lines",
+]
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +36,14 @@ ORCID_RE = re.compile(r"^\d{4}-\d{4}-\d{4}-\d{3}(\d|X)$")
 def _raise_on_invalid_orcid(orcid: str) -> None:
     if not ORCID_RE.match(orcid):
         raise ValueError
+
+
+def get_orcid_name(orcid: str, *, timeout: TimeoutHint = None) -> str | None:
+    """Get a person's name from their ORCID."""
+    dd = get_orcid_data(orcid=orcid, timeout=timeout)
+    if dd is None:
+        return None
+    return dd["name"]
 
 
 def get_orcid_data(orcid: str, *, timeout: TimeoutHint = None) -> Optional[Dict[str, str]]:
