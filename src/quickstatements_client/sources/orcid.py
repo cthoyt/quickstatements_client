@@ -5,10 +5,13 @@
 .. seealso:: More detailed functionality is implemented in https://github.com/lubianat/pyorcidator
 """
 
-import click
 import logging
 import re
+from typing import Dict, Iterable, Optional
+
+import click
 import requests
+
 from quickstatements_client.constants import TimeoutHint
 from quickstatements_client.model import (
     CreateLine,
@@ -19,7 +22,6 @@ from quickstatements_client.model import (
     TextQualifier,
 )
 from quickstatements_client.sources.utils import get_qid
-from typing import Dict, Iterable, Optional
 
 __all__ = [
     "get_orcid_data",
