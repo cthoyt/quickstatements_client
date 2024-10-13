@@ -7,6 +7,7 @@
 
 import logging
 import re
+from functools import lru_cache
 from typing import Dict, Iterable, Optional
 
 import click
@@ -28,6 +29,7 @@ __all__ = [
     "get_orcid_name",
     "get_orcid_qid",
     "iter_orcid_lines",
+    "check_orcid_exists",
 ]
 
 logger = logging.getLogger(__name__)
@@ -48,14 +50,26 @@ def get_orcid_name(orcid: str, *, timeout: TimeoutHint = None) -> Optional[str]:
     return dd["name"]
 
 
-def get_orcid_data(orcid: str, *, timeout: TimeoutHint = None) -> Optional[Dict[str, str]]:
-    """Get data from the ORCID API."""
+@lru_cache
+def _get_orcid(orcid: str, *, timeout: TimeoutHint = None) -> requests.Response:
     _raise_on_invalid_orcid(orcid)
     if timeout is not None:
         timeout = 10.0
     res = requests.get(
         f"https://orcid.org/{orcid}", headers={"Accept": "application/json"}, timeout=timeout
-    ).json()
+    )
+    return res
+
+
+def check_orcid_exists(orcid: str) -> bool:
+    """Check if the ORCID record exists."""
+    res = _get_orcid(orcid)
+    return res.status_code == 200
+
+
+def get_orcid_data(orcid: str, *, timeout: TimeoutHint = None) -> Optional[Dict[str, str]]:
+    """Get data from the ORCID API."""
+    res = _get_orcid(orcid, timeout=timeout).json()
     person = res.get("person")
     if not person:
         logger.warning("%s got no data: %s", orcid, res)
