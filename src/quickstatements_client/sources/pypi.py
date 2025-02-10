@@ -96,6 +96,11 @@ github_qualifier = EntityQualifier(
 )
 
 
+def get_pypi_api(pypi_project: str) -> requests.Response:
+    """Get JSON from the PyPI API."""
+    return requests.get(f"https://pypi.org/pypi/{pypi_project}/json", timeout=300)
+
+
 def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
     """Yield QuickStatements lines about a Python package in PyPI.
 
@@ -115,9 +120,7 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
     :yields: QuickStatements lines
     """
     pypi_project = pypi_project.replace("_", "-")
-    metadata = requests.get(f"https://pypi.org/pypi/{pypi_project}/json", timeout=300).json()[
-        "info"
-    ]
+    metadata = get_pypi_api(pypi_project).json()["info"]
 
     package_qid = get_package_qid(pypi_project)
     if not package_qid:
