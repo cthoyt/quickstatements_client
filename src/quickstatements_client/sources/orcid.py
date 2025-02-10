@@ -52,6 +52,7 @@ def get_orcid_name(orcid: str, *, timeout: TimeoutHint = None) -> Optional[str]:
 
 @lru_cache
 def _get_orcid(orcid: str, *, timeout: TimeoutHint = None) -> requests.Response:
+    """Get an ORCID record from the public API."""
     _raise_on_invalid_orcid(orcid)
     if timeout is not None:
         timeout = 10.0
@@ -62,7 +63,7 @@ def _get_orcid(orcid: str, *, timeout: TimeoutHint = None) -> requests.Response:
 
 
 def check_orcid_exists(orcid: str) -> bool:
-    """Check if the ORCID record exists."""
+    """Check if the ORCID record exists on the public API."""
     res = _get_orcid(orcid)
     return res.status_code == 200
 
