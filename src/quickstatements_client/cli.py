@@ -36,5 +36,15 @@ main.add_command(orcid.main)
 main.add_command(pypi.main)
 
 
+@main.command()
+@click.pass_context
+def maintain(ctx: click.Context) -> None:
+    """Run maitenance queries."""
+    from .maintenance import annotate_missing_followed_by, annotate_missing_follows
+
+    ctx.invoke(annotate_missing_follows.main)
+    ctx.invoke(annotate_missing_followed_by.main)
+
+
 if __name__ == "__main__":
     main()

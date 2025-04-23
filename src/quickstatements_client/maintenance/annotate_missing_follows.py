@@ -1,7 +1,5 @@
 """A maintenance script for adding missing "follows" relations to preprint/postprints."""
 
-import sys
-
 import click
 
 from quickstatements_client import EntityLine, QuickStatementsClient
@@ -37,12 +35,12 @@ def main(non_interactive: bool):
     ]
     if not lines:
         click.secho("No 'follows' relations to add", fg="yellow")
-        return sys.exit(0)
-    client = QuickStatementsClient()
-    if non_interactive:
-        client.post(lines, batch_name="Preprint Maintenance")
     else:
-        client.open_new_tab(lines)
+        client = QuickStatementsClient()
+        if non_interactive:
+            client.post(lines, batch_name="Preprint Maintenance")
+        else:
+            client.open_new_tab(lines)
 
 
 if __name__ == "__main__":
