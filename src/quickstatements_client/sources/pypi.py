@@ -101,7 +101,12 @@ def get_pypi_api(pypi_project: str) -> requests.Response:
     return requests.get(f"https://pypi.org/pypi/{pypi_project}/json", timeout=300)
 
 
-def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
+def iter_pypi_lines(
+    pypi_project: str,
+    *,
+    create: bool = True,
+    skip_check: bool = False,
+) -> Iterable[Line]:
     """Yield QuickStatements lines about a Python package in PyPI.
 
     :param pypi_project: The name of the project on PyPI (i.e.,
@@ -117,12 +122,18 @@ def iter_pypi_lines(pypi_project: str, create: bool = True) -> Iterable[Line]:
 
             Use this with care, as not all entries on Wikidata are
             fully annotated, and this could lead to duplicate entries
+    :param skip_check:
+        Switch this to true if you know for sure there
+        is no QID for the package already
     :yields: QuickStatements lines
     """
     pypi_project = pypi_project.replace("_", "-")
     metadata = get_pypi_api(pypi_project).json()["info"]
 
-    package_qid = get_package_qid(pypi_project)
+    if skip_check:
+        package_qid = None
+    else:
+        package_qid = get_package_qid(pypi_project)
     if not package_qid:
         if not create:
             return
@@ -264,12 +275,13 @@ def _dict_get(data: Mapping[str, str], keys: Sequence[str]) -> Optional[str]:
 
 @click.command(name="pypi")
 @click.argument("package")
-def main(package: str):
+@click.option("--skip-check", is_flag=True)
+def main(package: str, skip_check: bool):
     """Add a PyPI package to Wikidata."""
     from quickstatements_client.model import lines_to_new_tab
 
-    lines_to_new_tab(iter_pypi_lines(package))
+    lines_to_new_tab(iter_pypi_lines(package, skip_check=skip_check))
 
 
 if __name__ == "__main__":
-    main("bioregistry")
+    main()
