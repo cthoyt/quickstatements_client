@@ -20,7 +20,7 @@ from quickstatements_client.model import (
     TextLine,
     TextQualifier,
 )
-from quickstatements_client.sources.utils import query_wikidata, removeprefix
+from quickstatements_client.sources.utils import query_wikidata
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +49,7 @@ def load_licenses() -> Mapping[str, str]:
         }
     """
     return {
-        _norm(r["name"]): removeprefix(r["item"], "http://www.wikidata.org/entity/")
+        _norm(r["name"]): r["item"].removeprefix("http://www.wikidata.org/entity/")
         for r in json.loads(LICENSES.read_text())
     }
 
