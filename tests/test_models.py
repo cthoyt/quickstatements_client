@@ -47,8 +47,9 @@ class TestQuickStatements(unittest.TestCase):
                 TextLine(subject=subject, predicate=predicate, target=text)
 
         for subject, predicate, text in [("Q1", "Lxyz", "XXX")]:
-            with self.subTest(subject=subject, prediate=predicate, text=text), self.assertRaises(
-                pydantic.error_wrappers.ValidationError
+            with (
+                self.subTest(subject=subject, prediate=predicate, text=text),
+                self.assertRaises(pydantic.error_wrappers.ValidationError),
             ):
                 TextLine(subject=subject, predicate=predicate, target=text)
 
